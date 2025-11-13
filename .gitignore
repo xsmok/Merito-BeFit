@@ -266,6 +266,11 @@ ServiceFabricBackup/
 *.ldf
 *.ndf
 
+# SQLite database files - local development data
+BeFit/befit.db
+BeFit/befit.db-shm
+BeFit/befit.db-wal
+
 # Business Intelligence projects
 *.rdl.data
 *.bim.layout
