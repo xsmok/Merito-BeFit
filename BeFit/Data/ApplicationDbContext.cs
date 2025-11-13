@@ -12,6 +12,10 @@ namespace BeFit.Data
         {
         }
 
+        public DbSet<BeFit.Models.ExerciseType> ExerciseType { get; set; } = default!;
+        public DbSet<BeFit.Models.Exercise> Exercise { get; set; } = default!;
+        public DbSet<BeFit.Models.ExerciseSession> ExerciseSession { get; set; } = default!;
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
