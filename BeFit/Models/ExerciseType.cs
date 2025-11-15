@@ -8,5 +8,11 @@ namespace BeFit.Models
         
         [MaxLength(255)]
         public string Name { get; set; }
+
+        [Display(Name = "Created by")]
+        public string CreatedById { get; set; }
+
+        [Display(Name = "Created by")]
+        public AppUser? CreatedBy { get; set; }
     }
 }

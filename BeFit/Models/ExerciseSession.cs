@@ -11,5 +11,11 @@ namespace BeFit.Models
         
         public int ExerciseId { get; set; }
         public Exercise Exercise { get; set; }
+
+        [Display(Name = "Created by")]
+        public string CreatedById { get; set; }
+
+        [Display(Name = "Created by")]
+        public AppUser? CreatedBy { get; set; }
     }
 }
