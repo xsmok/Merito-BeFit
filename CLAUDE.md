@@ -1,10 +1,11 @@
 # AI Rules for BeFit
 
-BeFit is a very simple fitness app. Where user can declare his exercises and his training sessions, and combine them into workouts.
+BeFit is a very simple fitness app. Where user can declare exercise types and training sessions (called "exercises" in the code), and link them together through exercise sessions.
 
-- **Exercise**: Simple entity with just a name
-- **Training session**: Time-bounded entity with start/end timestamps
-- **Workout**: The connection between an exercise and a session, with the actual performance data (series, reps, weight)
+- **ExerciseType**: Simple entity with just a name (e.g., "Bench Press", "Squats")
+- **Exercise**: Time-bounded training session entity with start/end timestamps
+- **ExerciseSession**: The connection between an ExerciseType and an Exercise (training session)
+  - Note: Performance data (series, reps, weight) is planned but not yet implemented in the current model
 
 ## CODING_PRACTICES
 

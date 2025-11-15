@@ -16,11 +16,12 @@ A simple fitness tracking web application built with ASP.NET Core MVC that helps
 
 BeFit is a straightforward fitness tracking application designed to help users organize their workout routines. The application follows a simple three-tier data model:
 
-- **Exercise**: A basic entity representing a specific exercise with just a name (e.g., "Bench Press", "Squats")
-- **Training Session**: A time-bounded entity that tracks when you worked out, with start and end timestamps
-- **Workout**: The connection between an exercise and a training session, containing the actual performance data such as series, repetitions, and weight
+- **ExerciseType**: A basic entity representing a specific exercise type with just a name (e.g., "Bench Press", "Squats")
+- **Exercise**: A time-bounded training session entity that tracks when you worked out, with start and end timestamps
+- **ExerciseSession**: The connection between an ExerciseType and an Exercise (training session)
+  - *Note: Performance data (series, repetitions, and weight) is planned but not yet implemented in the current model*
 
-This architecture allows users to plan their exercises, schedule training sessions, and record detailed workout performance data all in one place.
+This architecture allows users to define exercise types, schedule training sessions, and link them together. Full workout performance tracking will be added in future updates.
 
 ## Tech Stack
 
@@ -131,22 +132,23 @@ The application includes three launch profiles:
 
 The BeFit application is designed to support the following functionality:
 
-1. **Exercise Management**
-   - Create, read, update, and delete exercises
-   - Store exercise definitions with descriptive names
+1. **Exercise Type Management**
+   - Create, read, update, and delete exercise types
+   - Store exercise type definitions with descriptive names
 
-2. **Training Session Tracking**
+2. **Exercise (Training Session) Tracking**
    - Schedule and track training sessions
    - Record start and end times for each session
    - View training history
 
-3. **Workout Recording**
-   - Link exercises to training sessions
-   - Record performance metrics:
+3. **Exercise Session Management**
+   - Link exercise types to training sessions
+   - Create connections between exercises and their types
+   - *Performance metrics (planned for future release):*
      - Number of series (sets)
      - Repetitions per series
      - Weight used
-   - Track progress over time
+   - Track progress over time (future feature)
 
 ### Current Implementation
 
@@ -187,9 +189,31 @@ BeFit/
 - ✅ Basic MVC structure (Controllers, Models, Views)
 
 ### In Progress
-- 🔄 Exercise management features
-- 🔄 Training session tracking
-- 🔄 Workout recording and linking
+- 🔄 Exercise type management features
+- 🔄 Exercise (training session) tracking
+- 🔄 Exercise session linking functionality
+- 🔄 Performance data implementation (series, reps, weight)
+
+## Model Naming Clarification
+
+To avoid confusion, here's a clarification of the data model naming in the codebase:
+
+| Model Name | What It Represents | Example |
+|------------|-------------------|---------|
+| **ExerciseType** | A type of exercise that can be performed | "Bench Press", "Squats", "Deadlift" |
+| **Exercise** | A training session with start and end times | "Monday morning workout from 9:00 to 10:30" |
+| **ExerciseSession** | Links an ExerciseType to an Exercise | "Bench Press performed during Monday morning workout" |
+
+**Important Note**: The `ExerciseSession` model currently serves as a linking table between `ExerciseType` and `Exercise`. The performance data attributes (series, repetitions, weight) mentioned in the features are planned but not yet implemented in the model. These will be added in a future update to enable full workout tracking capabilities.
+
+### Why These Names?
+
+The naming convention follows a pattern where:
+- `ExerciseType` defines *what* exercise you're doing
+- `Exercise` defines *when* you're training
+- `ExerciseSession` connects them to show *what you did when*
+
+This structure provides flexibility to track multiple exercise types within a single training session and maintain a history of all workouts performed.
 
 ## Development Guidelines
 
