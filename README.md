@@ -120,7 +120,9 @@ dotnet ef migrations remove --project BeFit/BeFit.csproj
 
 ### Code Generation (Scaffolding)
 
-ASP.NET Core includes a code generation tool that can automatically create controllers and views for your models, saving development time.
+ASP.NET Core includes code generation tools that can automatically create controllers, views, and database migrations, saving development time.
+
+#### Generating Controllers and Views
 
 ```bash
 # Generate a controller with views for a model
@@ -136,6 +138,15 @@ dotnet aspnet-codegenerator controller -name ExerciseTypesController -m Exercise
 - `--referenceScriptLibraries`: Include script references for jQuery validation
 
 **Note**: This requires the `Microsoft.VisualStudio.Web.CodeGeneration.Design` package to be installed in your project.
+
+#### Generating Database Migrations
+
+```bash
+# Create a new migration based on model changes
+dotnet ef migrations add MigrationName --project BeFit/BeFit.csproj
+```
+
+This command analyzes your model classes and generates migration code to update the database schema. After creating a migration, use `dotnet ef database update` to apply it to the database.
 
 ### Launch Profiles
 
