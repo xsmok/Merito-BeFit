@@ -118,6 +118,25 @@ dotnet ef database update --project BeFit/BeFit.csproj
 dotnet ef migrations remove --project BeFit/BeFit.csproj
 ```
 
+### Code Generation (Scaffolding)
+
+ASP.NET Core includes a code generation tool that can automatically create controllers and views for your models, saving development time.
+
+```bash
+# Generate a controller with views for a model
+dotnet aspnet-codegenerator controller -name ExerciseTypesController -m ExerciseType -dc ApplicationDbContext --useDefaultLayout --relativeFolderPath Controllers --referenceScriptLibraries
+```
+
+**Command parameters explained**:
+- `-name`: Name of the controller to generate
+- `-m`: Model class to use for the scaffolded views
+- `-dc`: Database context class
+- `--useDefaultLayout`: Use the default layout from _Layout.cshtml
+- `--relativeFolderPath`: Folder path for the generated controller
+- `--referenceScriptLibraries`: Include script references for jQuery validation
+
+**Note**: This requires the `Microsoft.VisualStudio.Web.CodeGeneration.Design` package to be installed in your project.
+
 ### Launch Profiles
 
 The application includes three launch profiles:
