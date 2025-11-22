@@ -13,6 +13,15 @@ namespace BeFit.Models
         public Exercise Exercise { get; set; }
 
         [Required]
+        public float Weight { get; set; }
+
+        [Required]
+        public int Series { get; set; }
+
+        [Required]
+        public int Repetitions { get; set; }
+
+        [Required]
         [Display(Name = "Created by")]
         public string CreatedById { get; set; }
 

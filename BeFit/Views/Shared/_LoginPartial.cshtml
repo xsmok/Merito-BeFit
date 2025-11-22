@@ -5,15 +5,15 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <div class="navbar-item">Hello @User.Identity?.Name!</div>
-    <div class="navbar-item">
+    <div class="navbar-item ms-2">
         <form asp-area="Identity" asp-page="/Account/Logout"
             asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button type="submit">Logout</button>
+            <button type="submit" class="btn btn-outline-danger">Logout</button>
         </form>
     </div>
 }
 else
 {
-    <a class="navbar-item" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    <a class="navbar-item" asp-area="Identity" asp-page="/Account/Login">Login</a>
+    <a class="navbar-item btn btn-outline-primary me-2" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    <a class="navbar-item btn btn-primary" asp-area="Identity" asp-page="/Account/Login">Login</a>
 }
