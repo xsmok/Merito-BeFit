@@ -1,0 +1,52 @@
+@model IEnumerable<dynamic>
+
+@{
+    ViewData["Title"] = "Stats";
+}
+
+<h1>Stats</h1>
+    
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Count
+            </th>
+            <th>
+                TotalRepetitions
+            </th>
+            <th>
+                AverageWeight
+            </th>
+            <th>
+                MaxWeight
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var stat in Model) {
+        <tr>
+            <td>
+                @stat.Name
+            </td>
+            <td>
+                @stat.Count
+            </td>
+            <td>
+                @stat.TotalRepetitions
+            </td>
+            <td>
+                @stat.AverageWeight
+            </td>
+            <td>
+                @stat.MaxWeight
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
