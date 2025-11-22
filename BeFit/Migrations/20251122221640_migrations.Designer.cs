@@ -11,14 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeFit.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251113174627_AddExerciseTables")]
-    partial class AddExerciseTables
+    [Migration("20251122221640_migrations")]
+    partial class migrations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "9.0.10");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.22");
 
             modelBuilder.Entity("BeFit.Models.AppUser", b =>
                 {
@@ -90,13 +90,19 @@ namespace BeFit.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("DateTimeBegining")
+                    b.Property<string>("CreatedById")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DateTimeBeginning")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DateTimeEnding")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
 
                     b.ToTable("Exercise");
                 });
@@ -107,13 +113,28 @@ namespace BeFit.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("CreatedById")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("ExerciseId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("ExerciseTypeId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("Repetitions")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Series")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<float>("Weight")
+                        .HasColumnType("REAL");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
 
                     b.HasIndex("ExerciseId");
 
@@ -170,6 +191,13 @@ namespace BeFit.Migrations
                             ConcurrencyStamp = "8895f9cd-6508-4cf7-8948-0edb4e6fd3f1",
                             Name = "Adult",
                             NormalizedName = "ADULT"
+                        },
+                        new
+                        {
+                            Id = "8895f9cd-6508-4cf7-8948-0edb4e6fd3f2",
+                            ConcurrencyStamp = "8895f9cd-6508-4cf7-8948-0edb4e6fd3f2",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
                         });
                 });
 
@@ -279,8 +307,25 @@ namespace BeFit.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("BeFit.Models.Exercise", b =>
+                {
+                    b.HasOne("BeFit.Models.AppUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CreatedBy");
+                });
+
             modelBuilder.Entity("BeFit.Models.ExerciseSession", b =>
                 {
+                    b.HasOne("BeFit.Models.AppUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("BeFit.Models.Exercise", "Exercise")
                         .WithMany()
                         .HasForeignKey("ExerciseId")
@@ -292,6 +337,8 @@ namespace BeFit.Migrations
                         .HasForeignKey("ExerciseTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("CreatedBy");
 
                     b.Navigation("Exercise");
 

@@ -68,7 +68,7 @@ namespace BeFit.Controllers
         public IActionResult Create()
         {
             ViewData["ExerciseId"] = new SelectList(_context.Exercise.Where(e => e.CreatedById == GetUserId()), "Id", "DateTimeBeginning");
-            ViewData["ExerciseTypeId"] = new SelectList(_context.ExerciseType.Where(e => e.CreatedById == GetUserId()), "Id", "Name");
+            ViewData["ExerciseTypeId"] = new SelectList(_context.ExerciseType, "Id", "Name");
             return View();
         }
 
@@ -98,7 +98,7 @@ namespace BeFit.Controllers
             }
 
             ViewData["ExerciseId"] = new SelectList(_context.Exercise.Where(e => e.CreatedById == GetUserId()), "Id", "DateTimeBeginning", exerciseSession.ExerciseId);
-            ViewData["ExerciseTypeId"] = new SelectList(_context.ExerciseType.Where(e => e.CreatedById == GetUserId()), "Id", "Name", exerciseSession.ExerciseTypeId);
+            ViewData["ExerciseTypeId"] = new SelectList(_context.ExerciseType, "Id", "Name", exerciseSession.ExerciseTypeId);
 
             return View(exerciseSession);
 
@@ -118,7 +118,7 @@ namespace BeFit.Controllers
                 return NotFound();
             }
             ViewData["ExerciseId"] = new SelectList(_context.Exercise.Where(e => e.CreatedById == GetUserId()), "Id", "DateTimeBeginning", exerciseSession.ExerciseId);
-            ViewData["ExerciseTypeId"] = new SelectList(_context.ExerciseType.Where(e => e.CreatedById == GetUserId()), "Id", "Name", exerciseSession.ExerciseTypeId);
+            ViewData["ExerciseTypeId"] = new SelectList(_context.ExerciseType, "Id", "Name", exerciseSession.ExerciseTypeId);
             return View(exerciseSession);
         }
 
@@ -159,7 +159,7 @@ namespace BeFit.Controllers
             }
 
             ViewData["ExerciseId"] = new SelectList(_context.Exercise.Where(e => e.CreatedById == GetUserId()), "Id", "DateTimeBeginning", exerciseSession.ExerciseId);
-            ViewData["ExerciseTypeId"] = new SelectList(_context.ExerciseType.Where(e => e.CreatedById == GetUserId()), "Id", "Name", exerciseSession.ExerciseTypeId);
+            ViewData["ExerciseTypeId"] = new SelectList(_context.ExerciseType, "Id", "Name", exerciseSession.ExerciseTypeId);
 
             return View(exerciseSession);
 

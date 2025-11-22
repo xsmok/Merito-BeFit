@@ -14,7 +14,6 @@ using BeFit.DTOs;
 
 namespace BeFit.Controllers
 {
-    [Authorize]
     public class ExerciseTypesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -32,7 +31,7 @@ namespace BeFit.Controllers
         // GET: ExerciseTypes
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.ExerciseType.Where(e => e.CreatedById == GetUserId());
+            var applicationDbContext = _context.ExerciseType;
             return View(await applicationDbContext.ToListAsync());
 
         }
@@ -46,7 +45,6 @@ namespace BeFit.Controllers
             }
 
             var exerciseType = await _context.ExerciseType
-                .Include(e => e.CreatedBy)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (exerciseType == null)
             {
@@ -57,6 +55,7 @@ namespace BeFit.Controllers
         }
 
         // GET: ExerciseTypes/Create
+        [Authorize(Roles = "Administrator")]
         public IActionResult Create()
         {
             return View();
@@ -67,13 +66,13 @@ namespace BeFit.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Create([Bind("Id,Name")] ExerciseTypeDTO exerciseTypeDTO)
         {
             ExerciseType exerciseType = new ExerciseType()
             {
                 Id = exerciseTypeDTO.Id,
-                Name = exerciseTypeDTO.Name,
-                CreatedById = GetUserId()
+                Name = exerciseTypeDTO.Name
             };
 
             if (ModelState.IsValid)
@@ -87,6 +86,7 @@ namespace BeFit.Controllers
         }
 
         // GET: ExerciseTypes/Edit/5
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -107,6 +107,7 @@ namespace BeFit.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] ExerciseTypeDTO exerciseTypeDTO)
         {
             if (id != exerciseTypeDTO.Id)
@@ -117,11 +118,10 @@ namespace BeFit.Controllers
             ExerciseType exerciseType = new ExerciseType()
             {
                 Id = exerciseTypeDTO.Id,
-                Name = exerciseTypeDTO.Name,
-                CreatedById = GetUserId()
+                Name = exerciseTypeDTO.Name
             };
 
-            if (!ExerciseTypeExists(exerciseType.Id, GetUserId()))
+            if (!ExerciseTypeExists(exerciseType.Id))
             {
                 return NotFound();
             }
@@ -138,6 +138,7 @@ namespace BeFit.Controllers
         }
 
         // GET: ExerciseTypes/Delete/5
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -146,7 +147,6 @@ namespace BeFit.Controllers
             }
 
             var exerciseType = await _context.ExerciseType
-                .Include(e => e.CreatedBy)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (exerciseType == null)
             {
@@ -159,6 +159,7 @@ namespace BeFit.Controllers
         // POST: ExerciseTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var exerciseType = await _context.ExerciseType.FindAsync(id);
@@ -171,9 +172,9 @@ namespace BeFit.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ExerciseTypeExists(int id, string userId)
+        private bool ExerciseTypeExists(int id)
         {
-            return _context.ExerciseType.Any(e => e.Id == id && e.CreatedById == userId);
+            return _context.ExerciseType.Any(e => e.Id == id);
         }
 
     }

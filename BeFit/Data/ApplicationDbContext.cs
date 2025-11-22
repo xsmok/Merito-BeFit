@@ -28,6 +28,14 @@ namespace BeFit.Data
                 ConcurrencyStamp = "8895f9cd-6508-4cf7-8948-0edb4e6fd3f1"
             });
 
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Id = "8895f9cd-6508-4cf7-8948-0edb4e6fd3f2",
+                Name = "Administrator",
+                NormalizedName = "ADMINISTRATOR",
+                ConcurrencyStamp = "8895f9cd-6508-4cf7-8948-0edb4e6fd3f2"
+            });
+
 
         }
     }

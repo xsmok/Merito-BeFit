@@ -146,18 +146,12 @@ namespace BeFit.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("CreatedById")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CreatedById");
 
                     b.ToTable("ExerciseType");
                 });
@@ -194,6 +188,13 @@ namespace BeFit.Migrations
                             ConcurrencyStamp = "8895f9cd-6508-4cf7-8948-0edb4e6fd3f1",
                             Name = "Adult",
                             NormalizedName = "ADULT"
+                        },
+                        new
+                        {
+                            Id = "8895f9cd-6508-4cf7-8948-0edb4e6fd3f2",
+                            ConcurrencyStamp = "8895f9cd-6508-4cf7-8948-0edb4e6fd3f2",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
                         });
                 });
 
@@ -339,17 +340,6 @@ namespace BeFit.Migrations
                     b.Navigation("Exercise");
 
                     b.Navigation("ExerciseType");
-                });
-
-            modelBuilder.Entity("BeFit.Models.ExerciseType", b =>
-                {
-                    b.HasOne("BeFit.Models.AppUser", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CreatedBy");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
